@@ -167,7 +167,7 @@ py::list gmic_call(std::string cmd,std::vector<np_img> &imgs,std::vector<std::st
         }*/
 
 
-        auto r=im.unchecked<4>(); ;
+        auto r=im.unchecked<float,4>(); ;
         images[n].assign(shape[0],shape[1],shape[2],shape[3]);
 
         for (ssize_t i = 0; i < shape[0]; i++)
