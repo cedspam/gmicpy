@@ -8,6 +8,13 @@ import sys
 import setuptools
 from pathlib import Path
 base_path = os.path.dirname(__file__)
+include_dirs=[]
+try:
+    import pybind11
+    include_dirs-append(pybind11.get_include())
+except:
+    pass
+    
 
 ext_modules = [
     # If you need to link extra libraries or specify extra include directories
@@ -16,7 +23,7 @@ ext_modules = [
         'gmicpy',
         define_macros =[("_hypot","hypot")],
         [ str(p) for p in  Path(base_path).rglob("*.cpp")],
-        include_dirs=[os.path.join(base_path, 'include')],
+        include_dirs=[os.path.join(base_path, 'include')]+include_dirs,
         language='c++',
         undef_macros=["NDEBUG"],
         libraries = ['gmic','gomp','png','z','jpeg',"fftw3","tiff","curl"],
