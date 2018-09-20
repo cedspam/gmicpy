@@ -21,8 +21,8 @@ ext_modules = [
     # see https://docs.python.org/3/extending/building.html#building-c-and-c-extensions-with-distutils
     Extension(
         'gmicpy',
-        define_macros =[("_hypot","hypot")],
         [ str(p) for p in  Path(base_path).rglob("*.cpp")],
+        define_macros =[("_hypot","hypot")],
         include_dirs=[os.path.join(base_path, 'include')]+include_dirs,
         language='c++',
         undef_macros=["NDEBUG"],
