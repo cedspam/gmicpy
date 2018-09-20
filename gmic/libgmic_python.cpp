@@ -159,12 +159,12 @@ py::list gmic_call(std::string cmd,std::vector<np_img> &imgs,std::vector<std::st
         print_vec(shape);
 
 
-        if (im.ndim()==3)
+        /*if (im.ndim()==3)
         {
             int depth=1;
             shape.insert(shape.begin()+3,depth);
             im.resize(shape);
-        }
+        }*/
 
 
         auto r=im.unchecked<4>(); ;
