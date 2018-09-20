@@ -82,7 +82,7 @@ template<typename val> void print_vec(const std::vector<val>& vec)
 //template<typename T>
  py::object get_img_array( gmic_list<float> &images)
 {
-    //py::object res_img = py::list();
+   
     py::list res_img;
 
 
@@ -120,10 +120,10 @@ void reset()
 
 
 
-//vector<gmic_image<float>>
+
 py::list gmic_call(std::string cmd,std::vector<np_img> &imgs,std::vector<std::string> &names)
 {
-    gmic gmic_instance;
+    
     reset();
     ssize_t nb_img=imgs.size();
     ssize_t nb_names=names.size();
