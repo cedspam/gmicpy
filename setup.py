@@ -115,7 +115,7 @@ setup(
     long_description=open('README.rst').read(),
     ext_modules=ext_modules,
     packages=setuptools.find_packages(),
-    install_requires =['numpy',"pybind11"],
+    install_requires =['numpy',"pybind11==2.2.3"],
     cmdclass={
         'build_ext': BuildExt,
         'test': PyTest,
