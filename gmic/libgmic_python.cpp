@@ -13,7 +13,7 @@
 #include <pybind11/numpy.h>
 #include <pybind11/stl.h>
 #include <pybind11/cast.h>
-#include "gmic.h"
+#include <gmic.h>
 #include <cstdio>
 #include <cmath>
 #include<vector>
