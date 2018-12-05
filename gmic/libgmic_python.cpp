@@ -4,15 +4,9 @@
     g++ -o use_libgmic use_libgmic.cpp -lgmic -lfftw3
 */
 
-/*
-  Uncomment the two lines below if you want to use the CImg library along with the G'MIC library.
- */
-//#include "CImg.h"
-//using namespace cimg_library;
-
 #include <pybind11/numpy.h>
-#include <pybind11/stl.h>
-#include <pybind11/cast.h>
+//#include <pybind11/stl.h>
+//#include <pybind11/cast.h>
 #include <gmic.h>
 #include <cstdio>
 #include <cmath>
