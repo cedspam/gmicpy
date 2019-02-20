@@ -28,7 +28,7 @@ typedef py::array_t<float, py::array::c_style | py::array::forcecast> np_img;
 
 
 
-
+gmic  gmic_instance;
 
 
 template<typename val> void print_vec(const std::vector<val>& vec)
