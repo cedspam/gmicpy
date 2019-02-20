@@ -117,7 +117,7 @@ void reset()
 
 py::list gmic_call(std::string cmd,std::vector<np_img> &imgs,std::vector<std::string> &names)
 {
-    
+   
     reset();
     ssize_t nb_img=imgs.size();
     ssize_t nb_names=names.size();
@@ -204,7 +204,11 @@ PYBIND11_MODULE(gmicpy, m)
     m.doc() = "libgmic bindings"; // optional module docstring
 
 
-    m.def("gmic_call", &gmic_call,  py::return_value_policy::copy);
+    m.def("gmic_call", &gmic_call,py::arg("command") = "",
+          py::arg("images") = std::vector<np_img>()  ,
+          
+          std::vector<std::string>(),
+          py::return_value_policy::copy);
     m.def("reset", &reset);
 
     /*py::class_<gmic_image<float>>(m, "gmic_image", py::buffer_protocol())
