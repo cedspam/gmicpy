@@ -21,6 +21,10 @@ def test_gmic_alloc_large():
     img=[np.random.normal(size=(4096,4096,1,3))]
     gmic_call("",img,[])   
     
+def test_gmic_alloc_large_direct():
+    res=gmic_call(" 4096,4096,1,3  ",[],[])
+    assert res[0].shape== (4096,4096,1,3)
+
     
     
     
