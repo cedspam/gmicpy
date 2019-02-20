@@ -48,7 +48,7 @@ ext_modules = [
                      ]+include_dirs,
         language='c++',
         undef_macros=["NDEBUG"],
-        libraries = ['gmic','gomp','png','z','jpeg',"fftw3","tiff","curl"],
+        libraries = ['gmic'] #,'gomp','png','z','jpeg',"fftw3","tiff","curl"],
     ),
 ]
 
