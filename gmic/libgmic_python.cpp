@@ -205,9 +205,9 @@ PYBIND11_MODULE(gmicpy, m)
 
 
     m.def("gmic_call", &gmic_call,py::arg("command") = "",
-          py::arg("images") = std::vector<np_img>()  ,
+          py::arg("images") = py::list()  ,
           
-          std::vector<std::string>(),
+          py::arg("names") = py::list(),
           py::return_value_policy::copy);
     m.def("reset", &reset);
 
