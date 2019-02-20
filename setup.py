@@ -15,7 +15,24 @@ try:
 except:
     pass
     
+ 
 
+class get_pybind_include(object):
+    """Helper class to determine the pybind11 include path
+    The purpose of this class is to postpone importing pybind11
+    until it is actually installed, so that the ``get_include()``
+    method can be invoked. """
+
+    def __init__(self, user=False):
+        self.user = user
+
+    def __str__(self):
+        import pybind11
+        return pybind11.get_include(self.user)
+    
+    
+    
+    
 ext_modules = [
     # If you need to link extra libraries or specify extra include directories
     # see https://docs.python.org/3/extending/building.html#building-c-and-c-extensions-with-distutils
@@ -23,7 +40,12 @@ ext_modules = [
         'gmicpy',
         [ str(p) for p in  Path(base_path).rglob("*.cpp")],
         define_macros =[("_hypot","hypot")],
-        include_dirs=[os.path.join(base_path, 'include')]+include_dirs,
+        include_dirs=[os.path.join(base_path, 'include'),
+                                  # Path to pybind11 headers
+                            get_pybind_include(),
+                            get_pybind_include(user=True)
+
+                     ]+include_dirs,
         language='c++',
         undef_macros=["NDEBUG"],
         libraries = ['gmic','gomp','png','z','jpeg',"fftw3","tiff","curl"],
