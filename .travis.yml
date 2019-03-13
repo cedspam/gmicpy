@@ -8,4 +8,6 @@ before_install:
     - sudo apt-get update -qq
     - sudo apt install -y libgmic-dev cmake libboost-all-dev libeigen3-dev catchv  
 # command to run tests
+install:
+  - python setup.py -q install
 script: pytest
