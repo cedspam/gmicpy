@@ -136,7 +136,7 @@ setup(
     author='cedric.lacrambe',
     author_email='cedric.lacrambe@gmail.com',
      url='https://github.com/cedspam/gmicpy/',
-    long_description=open('README.rst').read(),
+    long_description=open('README.md').read(),
     ext_modules=ext_modules,
     packages=setuptools.find_packages(),
     install_requires =['numpy',"pybind11>=2.2.3"],
