@@ -8,9 +8,10 @@ before_install:
     - sudo apt install -y libgmic-dev cmake libboost-all-dev libeigen3-dev   python-dev python3-dev catch
 # command to run tests
 install:
+  - pip install coverage
   - pip install -r requirements.txt
   - python setup.py -q install
-script: pytest
+script: coverage run  setup.py -q install
 
 after_success:
   - coveralls
