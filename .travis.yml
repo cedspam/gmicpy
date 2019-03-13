@@ -1,0 +1,10 @@
+language: python
+python:
+  - '3.6'
+  - '3.4'
+  - '2.7'
+before_install:
+  - apt-get install -y -qq software-properties-common
+  - add-apt-repository  -y ppa:otto-kesselgulasch/gimp
+  - apt install -y libgmic-dev cmake libboost-all-dev libeigen3-dev catchv  
+  
