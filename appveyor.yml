@@ -2,16 +2,51 @@ version: 1.0.{build}
 image:
 - Visual Studio 2017
 - Ubuntu1804
+
+environment:
+
+  matrix:
+
+    # For Python versions available on Appveyor, see
+    # https://www.appveyor.com/docs/windows-images-software/#python
+    # The list here is complete (excluding Python 2.6, which
+    # isn't covered by this document) at the time of writing.
+
+    - PYTHON: "C:\\Python27"
+    - PYTHON: "C:\Python36"
+    - PYTHON: "C:\Python36-x64"
+
+platform:
+  - x86
+  - Any CPU
+
 build_script:
-- pwsh: >-
+- sh: >-
     python setup.py install
 
     python3 setup.py install
+- cmd: >-
+    %PYTHON%\\python setup.py install
+
+    %PYTHON%\\python3 setup.py install
+
+ 
+ 
 test_script:
-- ps: >-
+- sh: >-
     python setup.py test
 
     python3 setup.py test
+- cmd: >-
+    %PYTHON%\\python setup.py test
+
+    %PYTHON%\\python3 setup.py test
+    
+    
+artifacts:
+
+
+  - path: '**\*.whl'
 deploy:
 - provider: BinTray
   username: cedspam
@@ -22,3 +57,12 @@ deploy:
   package: gmicpy
   publish: true
   explode: false
+before_deploy:
+- sh: >-
+    python setup.py bdist_wheel
+
+    python3 setup.py bdist_wheel
+- cmd: >-
+    %PYTHON%\\python setup.py bdist_wheel
+
+    %PYTHON%\\python3 setup.py bdist_wheel
