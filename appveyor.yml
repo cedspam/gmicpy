@@ -1,0 +1,24 @@
+version: 1.0.{build}
+image:
+- Visual Studio 2017
+- Ubuntu1804
+build_script:
+- pwsh: >-
+    python setup.py install
+
+    python3 setup.py install
+test_script:
+- ps: >-
+    python setup.py test
+
+    python3 setup.py test
+deploy:
+- provider: BinTray
+  username: cedspam
+  api_key:
+    secure: ZGSL5wez3hps3RuZ1eJ2iIA8qxTKcjyUqS94dLrWJu3k35RX9KRsVpP3zagnAajr
+  subject: cedspam
+  repo: gmicpy
+  package: gmicpy
+  publish: true
+  explode: false
