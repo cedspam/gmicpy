@@ -19,7 +19,6 @@ environment:
 matrix:
   exclude:
   - image: Ubuntu1804
-  
     - PYTHON: "C:\\Python27"
     - PYTHON: "C:\\Python36"
 
