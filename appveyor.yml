@@ -16,9 +16,6 @@ environment:
     - PYTHON: "C:\Python36"
     - PYTHON: "C:\Python36-x64"
 
-platform:
-  - x86
-  - Any CPU
 
 build_script:
 - sh: >-
@@ -28,7 +25,7 @@ build_script:
 - cmd: >-
     %PYTHON%\\python setup.py install
 
-    %PYTHON%\\python3 setup.py install
+
 
  
  
@@ -38,9 +35,8 @@ test_script:
 
     python3 setup.py test
 - cmd: >-
-    %PYTHON%\\python setup.py test
+    "%PYTHON%\\python setup.py test"
 
-    %PYTHON%\\python3 setup.py test
     
     
 artifacts:
@@ -58,11 +54,9 @@ deploy:
   publish: true
   explode: false
 before_deploy:
-- sh: >-
-    python setup.py bdist_wheel
+  - sh: >-
+      python setup.py bdist_wheel
 
-    python3 setup.py bdist_wheel
-- cmd: >-
-    %PYTHON%\\python setup.py bdist_wheel
-
-    %PYTHON%\\python3 setup.py bdist_wheel
+      python3 setup.py bdist_wheel
+  - cmd: >-
+      "%PYTHON%\\python setup.py bdist_wheel"
