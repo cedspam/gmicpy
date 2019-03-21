@@ -10,7 +10,7 @@ language: python
 python:
   - '3.5'
   - '3.6'
-  - '3.7'
+  - "pypy3.5"
 
 before_install:
     - sudo  add-apt-repository  -y ppa:otto-kesselgulasch/gimp
