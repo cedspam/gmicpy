@@ -31,6 +31,46 @@ typedef py::array_t<float, py::array::c_style | py::array::forcecast> np_img;
 gmic  gmic_instance;
 
 
+void _init_gmic_instance()
+{
+    gmic::init_rc();
+      // Load startup command files.
+  CImg<char> commands_user, commands_update, filename_update;
+  bool is_invalid_user = false, is_invalid_update = false;
+  char sep = 0;
+  gmic_instance.verbosity = -1;
+
+  // Update file (in resources directory).
+  filename_update.assign(1024);
+  cimg_snprintf(filename_update,filename_update.width(),"%supdate%u.gmic",
+                gmic::path_rc(),gmic_version);
+  try {
+    try {
+      commands_update.load_cimg(filename_update);
+    } catch (...) {
+      commands_update.load_raw(filename_update);
+    }
+    commands_update.append(CImg<char>::vector(0),'y');
+    try { gmic_instance.add_commands(commands_update);
+    } catch (...) { is_invalid_update = true; throw; }
+  } catch (...) { commands_update.assign(); }
+  if (commands_update && (cimg_sscanf(commands_update," #@gmi%c",&sep)!=1 || sep!='c'))
+    commands_update.assign(); // Discard invalid update file
+
+  // User file (in parent of resources directory).
+  const char *const filename_user = gmic::path_user();
+  try {
+    commands_user.load_raw(filename_user).append(CImg<char>::vector(0),'y');
+    try { gmic_instance.add_commands(commands_user,filename_user); }
+    catch (...) { is_invalid_user = true; throw; }
+  } catch (...) { commands_user.assign(); }
+
+
+    
+};
+
+
+
 template<typename val> void print_vec(const std::vector<val>& vec)
 {
 
@@ -117,7 +157,7 @@ void reset()
 
 py::list gmic_call(std::string cmd,std::vector<np_img> &imgs,std::vector<std::string> &names)
 {
-    gmic::init_rc();
+    
     reset();
     ssize_t nb_img=imgs.size();
     ssize_t nb_names=names.size();
