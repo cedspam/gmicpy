@@ -250,6 +250,8 @@ PYBIND11_MODULE(gmicpy, m)
           py::arg("names") = py::list(),
           py::return_value_policy::copy);
     m.def("reset", &reset);
+    m.def("_init_gmic_instance", &_init_gmic_instance);
+
 
     /*py::class_<gmic_image<float>>(m, "gmic_image", py::buffer_protocol())
 
