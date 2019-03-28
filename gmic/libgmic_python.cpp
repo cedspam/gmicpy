@@ -117,7 +117,7 @@ void reset()
 
 py::list gmic_call(std::string cmd,std::vector<np_img> &imgs,std::vector<std::string> &names)
 {
-   
+    gmic::init_rc();
     reset();
     ssize_t nb_img=imgs.size();
     ssize_t nb_names=names.size();
