@@ -29,24 +29,33 @@ typedef py::array_t<float, py::array::c_style | py::array::forcecast> np_img;
 
 
 gmic  gmic_instance;
-
+void add_commands(const char *const commands)
+{
+    try
+    {
+        gmic_instance.add_commands(commands);
+    }
+    catch(...)
+    {
+        pybind11::value_error("gmic command chain invalid") ;
+    }
+}
 
 void _init_gmic_instance()
 {
     gmic::init_rc();
-    
     /*
       // Load startup command files.
-  CImg<char> commands_user, commands_update, filename_update;
-  bool is_invalid_user = false, is_invalid_update = false;
-  char sep = 0;
-  gmic_instance.verbosity = -1;
+    CImg<char> commands_user, commands_update, filename_update;
+    bool is_invalid_user = false, is_invalid_update = false;
+    char sep = 0;
+    gmic_instance.verbosity = -1;
 
-  // Update file (in resources directory).
-  filename_update.assign(1024);
-  cimg_snprintf(filename_update,filename_update.width(),"%supdate%u.gmic",
+    // Update file (in resources directory).
+    filename_update.assign(1024);
+    cimg_snprintf(filename_update,filename_update.width(),"%supdate%u.gmic",
                 gmic::path_rc(),gmic_version);
-  try {
+    try {
     try {
       commands_update.load_cimg(filename_update);
     } catch (...) {
@@ -55,20 +64,20 @@ void _init_gmic_instance()
     commands_update.append(CImg<char>::vector(0),'y');
     try { gmic_instance.add_commands(commands_update);
     } catch (...) { is_invalid_update = true; throw; }
-  } catch (...) { commands_update.assign(); }
-  if (commands_update && (cimg_sscanf(commands_update," #@gmi%c",&sep)!=1 || sep!='c'))
+    } catch (...) { commands_update.assign(); }
+    if (commands_update && (cimg_sscanf(commands_update," #@gmi%c",&sep)!=1 || sep!='c'))
     commands_update.assign(); // Discard invalid update file
 
-  // User file (in parent of resources directory).
-  const char *const filename_user = gmic::path_user();
-  try {
+    // User file (in parent of resources directory).
+    const char *const filename_user = gmic::path_user();
+    try {
     commands_user.load_raw(filename_user).append(CImg<char>::vector(0),'y');
     try { gmic_instance.add_commands(commands_user,filename_user); }
     catch (...) { is_invalid_user = true; throw; }
-  } catch (...) { commands_user.assign(); }
-*/
+    } catch (...) { commands_user.assign(); }
 
-    
+
+    */
 };
 
 
@@ -93,14 +102,14 @@ template<typename val> void print_vec(const std::vector<val>& vec)
 */
 
 //gmic_image<T>
- py::buffer_info get_image_buffer(gmic_image<float>& m)
+py::buffer_info get_image_buffer(gmic_image<float>& m)
 {
 
 
     auto buf= py::buffer_info( m._data,                               // Pointer to buffer
-                          sizeof(m(0)),                          // Size of one scalar
-                          py::format_descriptor< float>::format(), // Python struct-style format descriptor
-                          4,                                      // Number of dimensions
+                               sizeof(m(0)),                          // Size of one scalar
+                               py::format_descriptor< float>::format(), // Python struct-style format descriptor
+                               4,                                      // Number of dimensions
     { m._width, m._height,m._depth,m._spectrum },                 // Buffer dimensions
     {
         sizeof(m(0)),sizeof(m(0)) *m._width, sizeof(m(0)) *m._width*m._height,
@@ -116,9 +125,9 @@ template<typename val> void print_vec(const std::vector<val>& vec)
 
 
 //template<typename T>
- py::object get_img_array( gmic_list<float> &images)
+py::object get_img_array( gmic_list<float> &images)
 {
-   
+
     py::list res_img;
 
 
@@ -129,9 +138,9 @@ template<typename val> void print_vec(const std::vector<val>& vec)
         //auto res_i =  py::buffer_info();
         if (res_i.size!=0)
         {
-         py::array  res_array(res_i);
-         //res_img.attr("append")(  res_array);
-         res_img.append(res_array);
+            py::array  res_array(res_i);
+            //res_img.attr("append")(  res_array);
+            res_img.append(res_array);
         }
 
     };
@@ -159,7 +168,7 @@ void reset()
 
 py::list gmic_call(std::string cmd,std::vector<np_img> &imgs,std::vector<std::string> &names)
 {
-    
+
     reset();
     ssize_t nb_img=imgs.size();
     ssize_t nb_names=names.size();
@@ -225,7 +234,7 @@ py::list gmic_call(std::string cmd,std::vector<np_img> &imgs,std::vector<std::st
     }
 
 
-        return  get_img_array(images);
+    return  get_img_array(images);
 
 
 
@@ -247,12 +256,14 @@ PYBIND11_MODULE(gmicpy, m)
 
 
     m.def("gmic_call", &gmic_call,py::arg("command") = "",
-          py::arg("images") = py::list()  ,
-          
+          py::arg("images") = py::list(),
+
           py::arg("names") = py::list(),
           py::return_value_policy::copy);
     m.def("reset", &reset);
     m.def("_init_gmic_instance", &_init_gmic_instance);
+    m.def("add_commands", &add_commands);
+
 
 
     /*py::class_<gmic_image<float>>(m, "gmic_image", py::buffer_protocol())
