@@ -34,6 +34,8 @@ gmic  gmic_instance;
 void _init_gmic_instance()
 {
     gmic::init_rc();
+    
+    /*
       // Load startup command files.
   CImg<char> commands_user, commands_update, filename_update;
   bool is_invalid_user = false, is_invalid_update = false;
@@ -64,7 +66,7 @@ void _init_gmic_instance()
     try { gmic_instance.add_commands(commands_user,filename_user); }
     catch (...) { is_invalid_user = true; throw; }
   } catch (...) { commands_user.assign(); }
-
+*/
 
     
 };
