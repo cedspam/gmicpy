@@ -1,8 +1,3 @@
-/*
-    Note : To compile this example, using g++, use :
-
-    g++ -o use_libgmic use_libgmic.cpp -lgmic -lfftw3
-*/
 
 #include <pybind11/numpy.h>
 #include <pybind11/stl.h>
@@ -263,6 +258,10 @@ PYBIND11_MODULE(gmicpy, m)
     m.def("reset", &reset);
     m.def("_init_gmic_instance", &_init_gmic_instance);
     m.def("add_commands", &add_commands);
+    m.attr("path_rc") =gmic::path_rc();
+    m.attr("gmic_version")= gmic_version;
+    
+    
 
 
 
