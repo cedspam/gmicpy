@@ -19,7 +19,7 @@
 namespace py = pybind11;
 
 using namespace std;
-
+using namespace cimg_library;
 
 
 
