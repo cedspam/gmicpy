@@ -21,7 +21,7 @@ with tarfile.open(os.path.join(moduledir,"include.tar.bz2"), "r") as tar:
 
 del tarinfo
 del tar
-
-
-
+for p in glob.iglob(os.path.join(path_rc,"*.gmic")):
+    with open(p,"r") as f:
+        add_commands(f.read)
 name = "gmic"
