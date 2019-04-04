@@ -25,11 +25,11 @@ environment:
     
 build_script:
 - sh: >-
-    python setup.py install
+    python  -m pip install -e .
 
-    python3 setup.py install
+    python  -m pip install -e .
 - cmd: >-
-    %PYTHON%\\python setup.py install
+    %PYTHON%\\python  -m pip install -e .
 
 
 
