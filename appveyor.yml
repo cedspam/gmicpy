@@ -12,7 +12,6 @@ environment:
     # The list here is complete (excluding Python 2.6, which
     # isn't covered by this document) at the time of writing.
 
-    - PYTHON: "C:\\Python27"
     - PYTHON: "C:\\Python36"
     - PYTHON: "C:\\Python36-x64"
 
@@ -22,14 +21,27 @@ environment:
    # - PYTHON: "C:\\Python27"
     #- PYTHON: "C:\\Python36"
 
-    
+
+install:
+
+  - cmd: curl -o c:\\gmic_lib_win64.zip  https://gmic.eu/files/windows/gmic_lib_win64.zip
+  - cmd: 7z  e -o c:\\gmic 
+  - sh: sudo  add-apt-repository  -y ppa:otto-kesselgulasch/gimp
+  - sh: sudo apt-get update -qq
+  - sh: sudo apt install -y libgmic-dev cmake libboost-all-dev libeigen3-dev   python-dev python3-dev catch python3-pip  python3-numpy
+  - sh: sudo apt-get install git build-essential libgimp2.0-dev libcv-dev libopencv-dev  libhighgui-dev libcurl4-openssl-dev libfftw3-dev 
+
+
+
+
+
 build_script:
 - sh: >-
     python  -m pip install -e .
-
+    
     python  -m pip install -e .
 - cmd: >-
-    %PYTHON%\\python  -m pip install -e .
+    %PYTHON%\\python  -m pip install -e .   --include-dirs c:\\gmic   --library-dirs c:\\gmic  
 
 
 
