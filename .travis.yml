@@ -12,15 +12,19 @@ python:
 
 
 before_install:
-    if: os  = linux
-      - sudo  add-apt-repository  -y ppa:otto-kesselgulasch/gimp
-      - sudo apt-get update -qq
-      - sudo apt install -y libgmic-dev cmake libboost-all-dev libeigen3-dev   python-dev python3-dev catch python3-pip  python3-numpy
-      - sudo apt-get install git build-essential libgimp2.0-dev libcv-dev libopencv-dev  libhighgui-dev libcurl4-openssl-dev libfftw3-dev 
-    if: os  = windows
-      - wget https://gmic.eu/files/windows/gmic_lib_win64.zip
-      - mkdir c:\\gmic
-      - 7z e -oc:\\gmic
+  jobs:
+    include:
+      if: os  = linux
+        - sudo  add-apt-repository  -y ppa:otto-kesselgulasch/gimp
+        - sudo apt-get update -qq
+        - sudo apt install -y libgmic-dev cmake libboost-all-dev libeigen3-dev   python-dev python3-dev catch python3-pip  python3-numpy
+        - sudo apt-get install git build-essential libgimp2.0-dev libcv-dev libopencv-dev  libhighgui-dev libcurl4-openssl-dev libfftw3-dev 
+  jobs:
+    include:
+        if: os  = windows
+        - wget https://gmic.eu/files/windows/gmic_lib_win64.zip
+        - mkdir c:\\gmic
+        - 7z e -oc:\\gmic
       
       
 # command to run tests
