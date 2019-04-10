@@ -10,7 +10,8 @@ python:
   - '3.5'
   - '3.6'
   #- "pypy3.5"
-
+cache: pip
+  timeout: 1000
 
 before_install:
 
