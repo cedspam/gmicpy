@@ -9,7 +9,7 @@ language: python
 python:
   - '3.5'
   - '3.6'
-  - "pypy3.5"
+  #- "pypy3.5"
 
 
 before_install:
@@ -27,7 +27,7 @@ before_install:
 # command to run tests
 install:
   - pip install coverage
-  - pip install   --user -r requirements.txt
+  - pip install    -r requirements.txt
   - python setup.py -q install
 script: coverage run  setup.py -q test
 
