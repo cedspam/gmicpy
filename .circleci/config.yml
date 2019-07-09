@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/gmicpy
     docker:
-        - image: circleci/python:latest
+        - image: circleci/python:3
        
     steps:
       - checkout
