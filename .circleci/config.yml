@@ -21,7 +21,7 @@ jobs:
           command: 'pip3 install  --user  -r requirements.txt '
       - run:
           name: compile
-          command: 'python setup.py -q install'
+          command: 'python setup.py -q install  --user'
       - run:
           name: bdist
           command: 'python setup.py -q bdist_wheel'   
