@@ -21,7 +21,9 @@ jobs:
           command: 'python setup.py -q install'
       - run:
           name: bdist
-          command: 'python setup.py -q bdist_wheel'    
+          command: 'python setup.py -q bdist_wheel'   
+      - store_artifacts:
+          path: ~/gmicpy/dist
           
           
   test:
