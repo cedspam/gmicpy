@@ -15,7 +15,7 @@ jobs:
           command: 'sudo  add-apt-repository  -y ppa:otto-kesselgulasch/gimp'
       - run:
           name: install dev packages
-          command: 'sudo apt install -y libgmic-dev libboost-all-dev  python-dev python3-dev pybind11-dev '
+          command: 'sudo apt install -y libgmic-dev libboost-all-dev  python-dev python3-dev pybind11-dev build-essential'
       - run:
           name: install requirements
           command: 'pip3 install  --user  -r requirements.txt '
