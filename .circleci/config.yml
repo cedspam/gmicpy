@@ -35,10 +35,12 @@ jobs:
         - image: circleci/python:latest
        
     steps:
-
+      
       - run:
           name: add repository
-          command: 'python setup.py -q test'  
+          command: |
+          cd ~/gmicpy/dist
+          'python setup.py -q test'  
           
 workflows:
  version: 2
