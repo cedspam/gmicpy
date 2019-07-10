@@ -39,9 +39,9 @@ build_script:
 - sh: >-
     python  -m pip install -e .
 
-- cmd: >-
-    %PYTHON%\\python    setup.py  build_ext --inplace --include-dirs c:\\gmic\\gmic-lib-2.6.7-win64  --library-dirs c:\\gmic\\gmic-lib-2.6.7-win64
-	%PYTHON%\\python    setup.py  install -e
+
+- cmd:  %PYTHON%\\python    setup.py  build_ext --inplace --include-dirs c:\\gmic\\gmic-lib-2.6.7-win64  --library-dirs c:\\gmic\\gmic-lib-2.6.7-win64
+- cmd: 	%PYTHON%\\python    setup.py  install -e
 	
 
 
