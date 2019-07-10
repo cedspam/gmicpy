@@ -38,10 +38,11 @@ install:
 build_script:
 - sh: >-
     python  -m pip install -e .
-    
-    python  -m pip install -e .
+
 - cmd: >-
-    %PYTHON%\\python  -m pip install -e .   --include-dirs c:\\gmic   --library-dirs c:\\gmic  
+    %PYTHON%\\python    setup.py  build_ext --inplace --include-dirs c:\\gmic\\gmic-lib-2.6.7-win64  --library-dirs c:\\gmic\\gmic-lib-2.6.7-win64
+	%PYTHON%\\python    setup.py  install -e
+	
 
 
 
@@ -51,7 +52,7 @@ test_script:
 - sh: >-
     python setup.py test
 
-    python3 setup.py test
+    %PYTHON%\\python3 setup.py test
 - cmd: >-
     "%PYTHON%\\python setup.py test"
 
@@ -62,6 +63,14 @@ artifacts:
 
   - path: '**\*.whl'
 deploy:
+- provider: GitHub
+
+  auth_token:
+
+    secure: hFQADFVj2yIlUZWRrZirHbcqwpiV5WYhIlk4ZFqGE5Bk7o/UldDRzjkN2C7o4hgx
+
+  artifact: dist/*.whl
+
 - provider: BinTray
   username: cedspam
   api_key:
@@ -75,6 +84,5 @@ before_deploy:
   - sh: >-
       python setup.py bdist_wheel
 
-      python3 setup.py bdist_wheel
   - cmd: >-
-      "%PYTHON%\\python setup.py bdist_wheel"
+      %PYTHON%\\python    setup.py   bdist_wheel
